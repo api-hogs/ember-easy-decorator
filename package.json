@@ -1,0 +1,31 @@
+{
+  "name": "ember-easy-decorator",
+  "version": "0.0.0",
+  "description": "Simple decorator for Ember-EasyForm",
+  "main": "ember-easy-decorator.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/api-hogs/ember-easy-decorator.git"
+  },
+  "keywords": [
+    "Ember",
+    "EasyForm",
+    "decorator"
+  ],
+  "author": "Opak Alex <opak.alexandr@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/api-hogs/ember-easy-decorator/issues"
+  },
+  "homepage": "https://github.com/api-hogs/ember-easy-decorator",
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-contrib-coffee": "^0.10.1"
+  }
+}

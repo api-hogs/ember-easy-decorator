@@ -1,0 +1,31 @@
+{
+  "name": "ember-easy-decorator",
+  "version": "0.0.0",
+  "homepage": "https://github.com/api-hogs/ember-easy-decorator",
+  "authors": [
+    "Opak Alex <opak.alexandr@gmail.com>",
+    "ValeriaLeshchenko <valeria.leshchenko@gmail.com>"
+  ],
+  "description": "Simple decorator for Ember-EasyForm",
+  "main": "ember-easy-decorator.js",
+  "keywords": [
+    "Ember",
+    "EasyForm",
+    "decorator"
+  ],
+  "dependencies": {
+    "handlebars": "1.3.0",
+    "jquery": "2.1.0",
+    "ember": "~1.5.1",
+    "ember-data": "~1.0.0-beta.7",
+    "qunit": "1.14.0"
+  },
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
