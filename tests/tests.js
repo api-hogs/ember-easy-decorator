@@ -1,5 +1,5 @@
 test( "decorator-input of type input is displayed", function() {
-  equal($('#firstNameInput').length, );
+  equal($('#firstNameInput').length, 1);
 });
 
 test( "decorator-input of type select is displayed", function() {

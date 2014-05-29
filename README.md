@@ -34,7 +34,12 @@ UserDecorator = EmberEasyDecorator.extend
         # create your logic
 
 ```
-
+In your controller:
+```
+App.UsersController = Ember.Controller.extend({
+  decorator: UserDecorator.create({model: Ember.Object.create({'works': [{"name": "testing", "role": 'Manager'}]})})
+});
+```
 Use in template
 -------------
 There are 2 helpers available: ```{{decorator-input}}``` and ```{{decorator-section}}```.
