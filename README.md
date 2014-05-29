@@ -68,7 +68,7 @@ Create a form:
 {{#form-for controller.decorator.model}}
     <div id="firstNameInput">{{decorator-input 'firstName'}}</div>
     <div id="infoSection">{{decorator-section 'work'}}</div>
-  {{/form-for}}
+{{/form-for}}
 ```
 
 License
