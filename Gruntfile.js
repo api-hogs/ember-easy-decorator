@@ -3,13 +3,18 @@ module.exports = function(grunt) {
     coffee: {
       compile: {
         files: {
-          'ember-easy-decorator.js': 'ember-easy-decorator.coffee'
+          'dist/ember-easy-decorator.js': 'src/ember-easy-decorator.coffee'
         }
       }
+    },
+    qunit: {
+      all: ['tests/*.html']
     }
   });
 
-  grunt.loadNpmTasks('grunt-contrib-coffee');
+  grunt.registerTask('test', 'qunit');
+  grunt.registerTask('default', 'coffee');
 
-//  grunt.registerTask('test', 'qunit');
+  grunt.loadNpmTasks('grunt-contrib-coffee');
+  grunt.loadNpmTasks('grunt-contrib-qunit');
 };

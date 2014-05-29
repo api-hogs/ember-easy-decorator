@@ -27,6 +27,7 @@
     _createSectionComputed: function(propertyName) {
       var fields, section;
       section = propertyName.substr(0, propertyName.length - 13);
+      console.log(section);
       fields = this.get('attributes').keys.list.filter((function(_this) {
         return function(key) {
           return _this.get('attributes').get(key).options.section === section;

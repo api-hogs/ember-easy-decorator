@@ -7,7 +7,7 @@
     "ValeriaLeshchenko <valeria.leshchenko@gmail.com>"
   ],
   "description": "Simple decorator for Ember-EasyForm",
-  "main": "ember-easy-decorator.js",
+  "main": "dist/ember-easy-decorator.js",
   "keywords": [
     "Ember",
     "EasyForm",

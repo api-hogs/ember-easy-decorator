@@ -11,18 +11,19 @@
 <script src="../bower_components/jquery/dist/jquery.min.js"></script>
 <script src="../bower_components/handlebars/handlebars.min.js"></script>
 <script src="../bower_components/ember/ember.js"></script>
-<script src="../ember-easyForm.min.js"></script>
-<script src="../ember-easy-decorator.js"></script>
+<script src="../src/ember-easyForm.min.js"></script>
+<script src="../dist/ember-easy-decorator.js"></script>
 
 <script src="app.js"></script>
 <script src="../bower_components/qunit/qunit/qunit.js"></script>
 <script src="tests.js"></script>
 
 <script type="text/x-handlebars" data-template-name="index">
-  About to add tests
-  <div id="firstNameInput">{{decorator-input 'firstName'}}</div>
-  <div id="professionSelect">{{decorator-input 'profession'}}</div>
-  <div id="infoSection">{{decorator-section 'info'}}</div>
+  {{#form-for controller.decorator.model}}
+    <div id="firstNameInput">{{decorator-input 'firstName'}}</div>
+    <div id="professionSelect">{{decorator-input 'profession'}}</div>
+    <div id="infoSection">{{decorator-section 'info'}}</div>
+  {{/form-for}}
 </script>
 
 <script type='text/x-handlebars' data-template-name='works'>

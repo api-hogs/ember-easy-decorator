@@ -2,7 +2,7 @@
   "name": "ember-easy-decorator",
   "version": "0.0.0",
   "description": "Simple decorator for Ember-EasyForm",
-  "main": "ember-easy-decorator.js",
+  "main": "dist/ember-easy-decorator.js",
   "directories": {
     "test": "tests"
   },
@@ -26,6 +26,7 @@
   "homepage": "https://github.com/api-hogs/ember-easy-decorator",
   "devDependencies": {
     "grunt": "^0.4.5",
-    "grunt-contrib-coffee": "^0.10.1"
+    "grunt-contrib-coffee": "^0.10.1",
+    "grunt-contrib-qunit": "^0.4.0"
   }
 }
