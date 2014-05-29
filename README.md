@@ -74,6 +74,7 @@ Create a form:
 License
 ----
 
-MIT
+[MIT] [2]
 
 [1]:https://github.com/dockyard/ember-easyForm
+[2]:http://opensource.org/licenses/mit-license.php
