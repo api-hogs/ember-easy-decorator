@@ -19,7 +19,7 @@
     "decorator"
   ],
   "author": "Opak Alex <opak.alexandr@gmail.com>",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/api-hogs/ember-easy-decorator/issues"
   },

@@ -1,15 +1,15 @@
 test( "decorator-input of type input is displayed", function() {
-  ok($('#firstNameInput'));
+  equal($('#firstNameInput').length, );
 });
 
 test( "decorator-input of type select is displayed", function() {
-  ok($('#professionSelect'));
+  equal($('#professionSelect').length, 1);
 });
 
 test( "decorator-section is displayed", function() {
-  ok($('#infoSection'));
+  equal($('#infoSection').length, 1);
 });
 
 test( "template of element with nested attributes is displayed", function() {
-  ok($('#works'));
+  equal($('#works').length, 1);
 });
