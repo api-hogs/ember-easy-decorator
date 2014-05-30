@@ -91,9 +91,12 @@
   window.EED = EmberEasyDecorator;
 
   Ember.Handlebars.helper('decorator-input', function(property, options) {
-    var element;
+    var element, _ref;
     options = $.extend({}, options);
     element = this.get('decorator.%@'.fmt(property));
+    if ((element != null ? (_ref = element.options) != null ? _ref.isVisible : void 0 : void 0) === false) {
+      return;
+    }
     $.extend(options.hash, element.html);
     if (element.type === 'nested_attributes') {
       options.hash.templateName = element.options.templateName;

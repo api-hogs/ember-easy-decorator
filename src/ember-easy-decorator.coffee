@@ -14,7 +14,6 @@ window.EmberEasyDecorator = Ember.Object.extend Ember.Evented, Ember.ActionHandl
     delegate all attributes witch include Value as nomaValue to model
   ###
   unknownProperty: (propertyName) ->
-#    console.log(propertyName);
     if /Value$/.test(propertyName)
       modelProperty = propertyName.substr(0, propertyName.length - 5)
       return @get('model.%@'.fmt(modelProperty))
@@ -72,6 +71,7 @@ window.EED = EmberEasyDecorator
 Ember.Handlebars.helper 'decorator-input', (property, options) ->
   options = $.extend({}, options)
   element = @get('decorator.%@'.fmt(property))
+  return if element?.options?.isVisible == false
   $.extend(options.hash, element.html)
 
   if element.type == 'nested_attributes'
