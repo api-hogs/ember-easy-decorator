@@ -27,7 +27,6 @@
     _createSectionComputed: function(propertyName) {
       var fields, section;
       section = propertyName.substr(0, propertyName.length - 13);
-      console.log(section);
       fields = this.get('attributes').keys.list.filter((function(_this) {
         return function(key) {
           return _this.get('attributes').get(key).options.section === section;
@@ -90,6 +89,23 @@
 
   window.EED = EmberEasyDecorator;
 
+  EED.CheckboxItemView = Ember.View.extend({
+    title: (function() {
+      return this.get('item.title') || this.get('item.name') || this.get('item.%@'.fmt(this.get('labelPath'))) || this.get('item');
+    }).property('element'),
+    template: Ember.Handlebars.compile("<label>{{view.title}}</label><input type='checkbox' {{bind-attr checked='view.checked'}}>"),
+    checked: (function() {
+      Ember.defineProperty(this, "isActive", Ember.computed(function() {
+        return this.get('decorator')["%@".fmt(this.get('checkActiveMethod'))](this.get('item'));
+      }).property("item", "%@.each".fmt(this.get('collectionPath'))));
+      return this.get('isActive');
+    }).property('isActive'),
+    click: function() {
+      this.set('checked', !this.get('checked'));
+      this.get('decorator').send(this.get('checkCallback'), this.get('item'), this.get('checked'));
+    }
+  });
+
   Ember.Handlebars.helper('decorator-input', function(property, options) {
     var element, _ref;
     options = $.extend({}, options);
@@ -114,6 +130,21 @@
         options.hash.optionValuePath = options.hash.optionValuePath || "content";
         options.hash.optionLabelPath = options.hash.optionLabelPath || "content";
       }
+    }
+    if (element.type === 'checkboxCollection') {
+      this.get('decorator.%@Collection'.fmt(property)).forEach((function(_this) {
+        return function(item) {
+          options.hash.as = "checkbox";
+          options.hash.name = property;
+          options.hash.item = item;
+          options.hash.checkActiveMethod = element.options.checkActiveMethod;
+          options.hash.collectionPath = element.options.collectionPath;
+          options.hash.checkCallback = element.options.checkCallback;
+          options.hash.decorator = _this.get('decorator');
+          return Ember.Handlebars.helpers.view.call(_this, EED.CheckboxItemView, options);
+        };
+      })(this));
+      return;
     }
     return Ember.Handlebars.helpers['input'].call(this, property, options);
   });

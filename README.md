@@ -20,18 +20,37 @@ UserDecorator = EmberEasyDecorator.extend
     profession: EED.element('select', {section: 'work'}, {prompt: 'Choose one'}),
     company: EED.element('input', {section: 'work'}, {placeholder: 'Company'}),
     works:      EED.element('nested_attributes', {templateName: 'works', section: 'info'}),
-    
+    languages:  EED.element('checkboxCollection', {collectionPath:'decorator.languagesCollection', 
+                                                   #path to collection of elements to select from
+                                                   checkActiveMethod: 'languagesIsActive',
+                                                   #name of method that checks if checkbox is active
+                                                   checkCallback: 'checkLanguage', labelPath: 'labelPath'}, {}),
+                                                   #name of action to be called when checkbox is clicked
+            
     professionCollection:(->
       return ["doctor", "driver", "economist"]
         # You can implement any logic for select, and you have model in decorator => this.get('model')
         # If you want a relation collection add option: => relation: true
     ).property('model')
     
+    languagesCollection: (->
+      return ['Ukrainian', 'Spanish', 'German']
+    }.property('model'),
+    
+    languagesIsActive: (item) ->
+      return this.get('model.languages').contains(item)
+    },
+    
     actions:
       removeWork: (work) ->
         # create your logic
       createWork: (work) ->
         # create your logic
+      checkLanguage: (item,state) ->
+        if (state)
+          this.get('model.languages').pushObject(item)
+        else
+          this.get('model.languages').removeObject(item)
 
 ```
 In your controller:
@@ -50,6 +69,11 @@ Pass the property name:
 You can display all elements that have the same ```section``` property:
 ```
 {{decorator-section 'work'}}
+```
+
+For checkbox collection:
+```
+{{decorator-input 'languages'}}
 ```
 
 For nested attributes:
