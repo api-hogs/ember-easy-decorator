@@ -9,7 +9,7 @@ UserDecorator = EmberEasyDecorator.extend({
   languages:  EED.element('checkboxCollection', {collectionPath:'decorator.languagesCollection', checkActiveMethod: 'languagesIsActive', checkCallback: 'checkLanguage', labelPath: 'labelPath'}, {}),
 
   professionCollection: function() {
-    return ["doctor", "driver", "economist"]
+    return [{id: "doctor", name: "doctor"}, {id: "driver", name: "driver"}, {id: "economist", name: "economist"}]
   }.property('model'),
 
   languagesCollection: function(){
@@ -22,8 +22,8 @@ UserDecorator = EmberEasyDecorator.extend({
 
 
   actions: {
-    createWork: function(work){
-      this.get('model.works').pushObject({"name": "Anna", "role": 'Admin'});
+    createWork: function(name, role){
+      this.get('model.works').pushObject({"name": name, "role": role});
     },
     checkLanguage: function(item,state){
       if (state)

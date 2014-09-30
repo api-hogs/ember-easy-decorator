@@ -106,8 +106,9 @@
     }
   });
 
-  Ember.Handlebars.helper('decorator-input', function(property, options) {
-    var element, _ref;
+  Ember.Handlebars.helper('decorator-input', function(options) {
+    var element, property, _ref;
+    property = options.hash.property;
     options = $.extend({}, options);
     element = this.get('decorator.%@'.fmt(property));
     if ((element != null ? (_ref = element.options) != null ? _ref.isVisible : void 0 : void 0) === false) {
@@ -122,14 +123,10 @@
     }
     options.hash.as = element.type;
     if (element.type === 'select') {
-      options.hash.collection = options.hash.collection || 'controller.decorator.%@Collection'.fmt(property);
-      if (element.options.relation) {
-        options.hash.optionValuePath = options.hash.optionValuePath || "content.id";
-        options.hash.optionLabelPath = options.hash.optionLabelPath || "content.value";
-      } else {
-        options.hash.optionValuePath = options.hash.optionValuePath || "content";
-        options.hash.optionLabelPath = options.hash.optionLabelPath || "content";
-      }
+      options.hash.content = this.get('decorator.%@Collection'.fmt(property));
+      options.hash.optionValuePath = options.hash.optionValuePath || "content.id";
+      options.hash.optionLabelPath = options.hash.optionLabelPath || "content.name";
+      return Ember.Handlebars.helpers['em-select'].call(this, options);
     }
     if (element.type === 'checkboxCollection') {
       this.get('decorator.%@Collection'.fmt(property)).forEach((function(_this) {
@@ -146,19 +143,21 @@
       })(this));
       return;
     }
-    return Ember.Handlebars.helpers['input'].call(this, property, options);
+    return Ember.Handlebars.helpers['em-input'].call(this, options);
   });
 
-  Ember.Handlebars.helper('decorator-section', function(section, options) {
-    var elements;
+  Ember.Handlebars.helper('decorator-section', function(options) {
+    var elements, section;
+    section = options.hash.property;
     elements = this.get('decorator.%@SectionFields'.fmt(section));
     return elements.forEach((function(_this) {
       return function(element) {
         options = $.extend({}, options);
+        options.hash.property = element.name;
         'collection optionValuePath optionLabelPath placeholder value prompt readonly label type'.w().forEach(function(attr) {
           return delete options.hash[attr];
         });
-        return Ember.Handlebars.helpers['decorator-input'].call(_this, element.name, options);
+        return Ember.Handlebars.helpers['decorator-input'].call(_this, options);
       };
     })(this));
   });

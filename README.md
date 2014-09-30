@@ -1,7 +1,7 @@
 Ember EasyDecorator
 =========
 
-Ember EasyDecorator is a simple decorator that uses [Ember EasyForm] [1].
+Ember EasyDecorator is a simple decorator that uses [Ember-Forms] [1].
 
 Version
 ----
@@ -28,9 +28,7 @@ UserDecorator = EmberEasyDecorator.extend
                                                    #name of action to be called when checkbox is clicked
             
     professionCollection:(->
-      return ["doctor", "driver", "economist"]
-        # You can implement any logic for select, and you have model in decorator => this.get('model')
-        # If you want a relation collection add option: => relation: true
+      return [{id: "doctor", name: "doctor"}, {id: "driver", name: "driver"}, {id: "economist", name: "economist"}]
     ).property('model')
     
     languagesCollection: (->
@@ -64,35 +62,33 @@ Use in template
 There are 2 helpers available: ```{{decorator-input}}``` and ```{{decorator-section}}```.
 Pass the property name:
 ```
-{{decorator-input 'firstName'}}
+{{decorator-input property='firstName'}}
 ```
 You can display all elements that have the same ```section``` property:
 ```
-{{decorator-section 'work'}}
+{{decorator-section property='work'}}
 ```
 
 For checkbox collection:
 ```
-{{decorator-input 'languages'}}
+{{decorator-input property='languages'}}
 ```
 
 For nested attributes:
 ```
 <script type='text/x-handlebars' data-template-name='works'>
     {{#each work in view.context.model.works}}
-      {{input work.name label='Name'}}
-      {{input work.role label='Role'}}
+        <br>{{work.name}} {{work.role}}
     {{/each}}
-    <button {{action 'createWork' work on='click'}}>Add</button>
 </script>
 ```
 
 Create a form:
 ```
-{{#form-for controller.decorator.model}}
-    <div id="firstNameInput">{{decorator-input 'firstName'}}</div>
-    <div id="infoSection">{{decorator-section 'work'}}</div>
-{{/form-for}}
+{{#em-form model=controller.decorator.model}}
+    <div id="firstNameInput">{{decorator-input property='firstName'}}</div>
+    <div id="infoSection">{{decorator-section property='work'}}</div>
+{{/em-form}}
 ```
 
 License
@@ -100,5 +96,5 @@ License
 
 [MIT] [2]
 
-[1]:https://github.com/dockyard/ember-easyForm
+[1]:https://github.com/indexiatech/ember-forms
 [2]:http://opensource.org/licenses/mit-license.php

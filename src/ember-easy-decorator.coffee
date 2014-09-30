@@ -86,7 +86,8 @@ EED.CheckboxItemView = Ember.View.extend
     @get('decorator').send @get('checkCallback'), @get('item'),@get('checked')
     return
 
-Ember.Handlebars.helper 'decorator-input', (property, options) ->
+Ember.Handlebars.helper 'decorator-input', (options) ->
+  property = options.hash.property
   options = $.extend({}, options)
   element = @get('decorator.%@'.fmt(property))
   return if element?.options?.isVisible == false
@@ -100,34 +101,32 @@ Ember.Handlebars.helper 'decorator-input', (property, options) ->
 
   options.hash.as = element.type
   if element.type == 'select'
-    options.hash.collection = options.hash.collection || 'controller.decorator.%@Collection'.fmt(property)
-    if element.options.relation
-      options.hash.optionValuePath = options.hash.optionValuePath || "content.id"
-      options.hash.optionLabelPath = options.hash.optionLabelPath || "content.value"
-    else
-      options.hash.optionValuePath = options.hash.optionValuePath || "content"
-      options.hash.optionLabelPath = options.hash.optionLabelPath || "content"
-
+    options.hash.content = @get('decorator.%@Collection'.fmt(property))
+    options.hash.optionValuePath = options.hash.optionValuePath || "content.id"
+    options.hash.optionLabelPath = options.hash.optionLabelPath || "content.name"
+    return Ember.Handlebars.helpers['em-select'].call(@, options)
 
   if element.type == 'checkboxCollection'
-    this.get('decorator.%@Collection'.fmt(property)).forEach (item) =>
+    @get('decorator.%@Collection'.fmt(property)).forEach (item) =>
       options.hash.as = "checkbox"
       options.hash.name = property
       options.hash.item = item
       options.hash.checkActiveMethod = element.options.checkActiveMethod
       options.hash.collectionPath = element.options.collectionPath
       options.hash.checkCallback = element.options.checkCallback
-      options.hash.decorator = this.get('decorator')
+      options.hash.decorator = @get('decorator')
       return Ember.Handlebars.helpers.view.call this, EED.CheckboxItemView, options
     return
 
-  return Ember.Handlebars.helpers['input'].call(@, property, options)
+  return Ember.Handlebars.helpers['em-input'].call(@, options)
 
 
-Ember.Handlebars.helper 'decorator-section', (section, options) ->
+Ember.Handlebars.helper 'decorator-section', (options) ->
+  section = options.hash.property
   elements = @get('decorator.%@SectionFields'.fmt(section))
   elements.forEach (element) =>
     options = $.extend({}, options)
+    options.hash.property = element.name
     'collection optionValuePath optionLabelPath placeholder value prompt readonly label type'.w().forEach (attr) ->
       delete options.hash[attr]
-    Ember.Handlebars.helpers['decorator-input'].call(@, element.name, options)
+    Ember.Handlebars.helpers['decorator-input'].call(@, options)
